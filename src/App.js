@@ -77,30 +77,30 @@ const RepositoryList = ({
   selectedRepositoryIds,
   toggleSelectRepository,
 }) => (
-  <ul>
-    {repositories.edges.map(({ node }) => {
-      const isSelected = selectedRepositoryIds.includes(node.id);
+    <ul>
+      {repositories.edges.map(({ node }) => {
+        const isSelected = selectedRepositoryIds.includes(node.id);
 
-      const rowClassName = ['row'];
+        const rowClassName = ['row'];
 
-      if (isSelected) {
-        rowClassName.push('row_selected');
-      }
+        if (isSelected) {
+          rowClassName.push('row_selected');
+        }
 
-      return (
-        <li className={rowClassName.join(' ')} key={node.id}>
-          <Select
-            id={node.id}
-            isSelected={isSelected}
-            toggleSelectRepository={toggleSelectRepository}
-          />{' '}
-          <a href={node.url}>{node.name}</a>{' '}
-          {!node.viewerHasStarred && <Star id={node.id} />}
-        </li>
-      );
-    })}
-  </ul>
-);
+        return (
+          <li className={rowClassName.join(' ')} key={node.id}>
+            <Select
+              id={node.id}
+              isSelected={isSelected}
+              toggleSelectRepository={toggleSelectRepository}
+            />{' '}
+            <a href={node.url}>{node.name}</a>{' '}
+            {!node.viewerHasStarred && <Star id={node.id} />}
+          </li>
+        );
+      })}
+    </ul>
+  );
 
 const Star = ({ id }) => (
   <Mutation mutation={STAR_REPOSITORY} variables={{ id }}>
@@ -120,5 +120,11 @@ const Select = ({ id, isSelected, toggleSelectRepository }) => (
     {isSelected ? 'Unselect' : 'Select'}
   </button>
 );
+
+export {
+  Star,
+  STAR_REPOSITORY,
+  GET_REPOSITORIES_OF_ORGANIZATION,
+};
 
 export default App;
